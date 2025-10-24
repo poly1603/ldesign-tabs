@@ -1,0 +1,61 @@
+/**
+ * 导入所有主题样式
+ */
+
+@import './chrome.css';
+@import './vscode.css';
+@import './card.css';
+@import './material.css';
+
+/* 尺寸变体 */
+.ld-tabs-container.ld-tabs-size-xs {
+  --ld-tabs-height: var(--ld-tabs-height-xs);
+  --ld-tabs-font-size: var(--ld-tabs-font-size-xs);
+  --ld-tabs-icon-size: var(--ld-tabs-icon-size-xs);
+  --ld-tabs-padding-x: var(--size-spacing-md, 8px);
+}
+
+.ld-tabs-container.ld-tabs-size-sm {
+  --ld-tabs-height: var(--ld-tabs-height-sm);
+  --ld-tabs-font-size: var(--ld-tabs-font-size-sm);
+  --ld-tabs-icon-size: var(--ld-tabs-icon-size-sm);
+  --ld-tabs-padding-x: var(--size-spacing-md, 8px);
+}
+
+.ld-tabs-container.ld-tabs-size-md {
+  --ld-tabs-height: var(--ld-tabs-height-md);
+  --ld-tabs-font-size: var(--ld-tabs-font-size-md);
+  --ld-tabs-icon-size: var(--ld-tabs-icon-size-md);
+}
+
+.ld-tabs-container.ld-tabs-size-lg {
+  --ld-tabs-height: var(--ld-tabs-height-lg);
+  --ld-tabs-font-size: var(--ld-tabs-font-size-lg);
+  --ld-tabs-icon-size: var(--ld-tabs-icon-size-lg);
+  --ld-tabs-padding-x: var(--size-spacing-xl, 16px);
+}
+
+.ld-tabs-container.ld-tabs-size-xl {
+  --ld-tabs-height: var(--ld-tabs-height-xl);
+  --ld-tabs-font-size: var(--ld-tabs-font-size-xl);
+  --ld-tabs-icon-size: var(--ld-tabs-icon-size-xl);
+  --ld-tabs-padding-x: var(--size-spacing-2xl, 24px);
+}
+
+/* 宽度模式 */
+.ld-tabs-container.ld-tabs-width-shrink .ld-tabs-list {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.ld-tabs-container.ld-tabs-width-shrink .ld-tab-item {
+  flex: 1 1 auto;
+  min-width: var(--ld-tabs-min-width-shrink);
+  max-width: var(--ld-tabs-max-width);
+}
+
+.ld-tabs-container.ld-tabs-width-scroll .ld-tab-item {
+  flex-shrink: 0;
+  min-width: var(--ld-tabs-min-width);
+  max-width: var(--ld-tabs-max-width);
+}

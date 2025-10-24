@@ -1,0 +1,109 @@
+/**
+ * VSCode 编辑器风格
+ * 特征：矩形标签、底部指示线、紧凑布局
+ */
+
+.ld-tabs-container.ld-tabs-style-vscode {
+  --ld-tabs-gap: var(--ld-tabs-vscode-gap);
+  border-bottom: 1px solid var(--ld-tabs-border);
+}
+
+.ld-tabs-container.ld-tabs-style-vscode .ld-tabs-list {
+  gap: 0;
+  padding: 0;
+}
+
+/* VSCode 风格标签 */
+.ld-tabs-container.ld-tabs-style-vscode .ld-tab-item {
+  position: relative;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  margin: 0;
+  height: 100%;
+  padding: 0 var(--ld-tabs-padding-x);
+  border-right: 1px solid var(--ld-tabs-border);
+  transition: background-color var(--ld-tabs-transition-fast);
+}
+
+.ld-tabs-container.ld-tabs-style-vscode .ld-tab-item:first-child {
+  border-left: 1px solid var(--ld-tabs-border);
+}
+
+/* Hover 状态 */
+.ld-tabs-container.ld-tabs-style-vscode .ld-tab-item:hover {
+  background-color: var(--ld-tabs-bg-hover);
+}
+
+/* 底部指示线 */
+.ld-tabs-container.ld-tabs-style-vscode .ld-tab-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--ld-tabs-vscode-indicator-height);
+  background-color: transparent;
+  transition: background-color var(--ld-tabs-transition-fast);
+}
+
+/* 激活状态 */
+.ld-tabs-container.ld-tabs-style-vscode .ld-tab-item.active {
+  background-color: var(--ld-tabs-bg);
+  color: var(--ld-tabs-text-active);
+}
+
+.ld-tabs-container.ld-tabs-style-vscode .ld-tab-item.active::after {
+  background-color: var(--ld-tabs-border-active);
+}
+
+/* 固定标签 - 使用图钉图标 */
+.ld-tabs-container.ld-tabs-style-vscode .ld-tab-item.pinned .ld-tab-icon::before {
+  content: '📌';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  font-size: 8px;
+}
+
+/* 修改状态圆点 */
+.ld-tabs-container.ld-tabs-style-vscode .ld-tab-item[data-modified]::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--ld-tabs-text-active);
+}
+
+/* 关闭按钮 */
+.ld-tabs-container.ld-tabs-style-vscode .ld-tab-close {
+  opacity: 0;
+  margin-left: var(--size-spacing-xs, 4px);
+}
+
+.ld-tabs-container.ld-tabs-style-vscode .ld-tab-item:hover .ld-tab-close,
+.ld-tabs-container.ld-tabs-style-vscode .ld-tab-item.active .ld-tab-close {
+  opacity: 1;
+}
+
+/* 拖拽状态 */
+.ld-tabs-container.ld-tabs-style-vscode .ld-tab-item.dragging {
+  background-color: var(--ld-tabs-bg-hover);
+  opacity: 0.7;
+}
+
+/* 滚动按钮 */
+.ld-tabs-container.ld-tabs-style-vscode .ld-tabs-scroll-btn {
+  border-left: 1px solid var(--ld-tabs-border);
+  border-right: none;
+  background-color: var(--ld-tabs-bg);
+}
+
+.ld-tabs-container.ld-tabs-style-vscode .ld-tabs-scroll-btn:first-child {
+  border-left: none;
+  border-right: 1px solid var(--ld-tabs-border);
+}

@@ -1,0 +1,180 @@
+/**
+ * 动画效果
+ */
+
+/* 旋转动画（加载状态） */
+@keyframes ld-tabs-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 淡入动画 */
+@keyframes ld-tabs-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* 淡出动画 */
+@keyframes ld-tabs-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* 从上滑入 */
+@keyframes ld-tabs-slide-down {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 从下滑出 */
+@keyframes ld-tabs-slide-up {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+}
+
+/* 缩放进入 */
+@keyframes ld-tabs-scale-in {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 缩放退出 */
+@keyframes ld-tabs-scale-out {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}
+
+/* 闪烁动画（通知） */
+@keyframes ld-tabs-blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* 抖动动画（错误） */
+@keyframes ld-tabs-shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-2px);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(2px);
+  }
+}
+
+/* 脉冲动画 */
+@keyframes ld-tabs-pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 应用动画类 */
+.ld-tabs-fade-in {
+  animation: ld-tabs-fade-in var(--ld-tabs-transition);
+}
+
+.ld-tabs-fade-out {
+  animation: ld-tabs-fade-out var(--ld-tabs-transition);
+}
+
+.ld-tabs-slide-down {
+  animation: ld-tabs-slide-down var(--ld-tabs-transition);
+}
+
+.ld-tabs-slide-up {
+  animation: ld-tabs-slide-up var(--ld-tabs-transition);
+}
+
+.ld-tabs-scale-in {
+  animation: ld-tabs-scale-in var(--ld-tabs-transition);
+}
+
+.ld-tabs-scale-out {
+  animation: ld-tabs-scale-out var(--ld-tabs-transition);
+}
+
+.ld-tabs-blink {
+  animation: ld-tabs-blink 1s ease-in-out infinite;
+}
+
+.ld-tabs-shake {
+  animation: ld-tabs-shake 0.5s ease-in-out;
+}
+
+.ld-tabs-pulse {
+  animation: ld-tabs-pulse 1s ease-in-out infinite;
+}
+
+
+

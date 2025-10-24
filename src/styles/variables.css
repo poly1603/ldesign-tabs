@@ -1,0 +1,155 @@
+/**
+ * CSS 变量定义
+ * 集成 LDesign 主题系统 (@color/ 和 @size/)
+ */
+
+:root {
+  /* ========== 尺寸系统 ========== */
+  /* 标签页高度 - 多尺寸支持 */
+  --ld-tabs-height-xs: var(--size-component-xs, 28px);
+  --ld-tabs-height-sm: var(--size-component-sm, 32px);
+  --ld-tabs-height-md: var(--size-component-md, 36px);
+  --ld-tabs-height-lg: var(--size-component-lg, 40px);
+  --ld-tabs-height-xl: var(--size-component-xl, 48px);
+  --ld-tabs-height: var(--ld-tabs-height-md);
+  /* 默认中等尺寸 */
+
+  /* 标签宽度 */
+  --ld-tabs-min-width: 80px;
+  --ld-tabs-max-width: 200px;
+  --ld-tabs-min-width-shrink: 60px;
+  /* shrink 模式的最小宽度 */
+
+  /* 内边距 */
+  --ld-tabs-padding-x: var(--size-spacing-lg, 12px);
+  --ld-tabs-padding-y: var(--size-spacing-md, 8px);
+  --ld-tabs-gap: var(--size-spacing-xs, 4px);
+
+  /* 字体大小 */
+  --ld-tabs-font-size-xs: var(--size-font-xs, 11px);
+  --ld-tabs-font-size-sm: var(--size-font-sm, 12px);
+  --ld-tabs-font-size-md: var(--size-font-base, 14px);
+  --ld-tabs-font-size-lg: var(--size-font-md, 16px);
+  --ld-tabs-font-size-xl: var(--size-font-lg, 18px);
+  --ld-tabs-font-size: var(--ld-tabs-font-size-md);
+
+  /* 圆角 */
+  --ld-tabs-radius-sm: var(--size-radius-sm, 4px);
+  --ld-tabs-radius-md: var(--size-radius-md, 6px);
+  --ld-tabs-radius-lg: var(--size-radius-lg, 8px);
+  --ld-tabs-radius: var(--ld-tabs-radius-md);
+  --ld-tabs-radius-top: var(--ld-tabs-radius) var(--ld-tabs-radius) 0 0;
+
+  /* 图标尺寸 */
+  --ld-tabs-icon-size-xs: var(--size-icon-xs, 12px);
+  --ld-tabs-icon-size-sm: var(--size-icon-sm, 14px);
+  --ld-tabs-icon-size-md: var(--size-icon-md, 16px);
+  --ld-tabs-icon-size-lg: var(--size-icon-lg, 18px);
+  --ld-tabs-icon-size-xl: var(--size-icon-xl, 20px);
+  --ld-tabs-icon-size: var(--ld-tabs-icon-size-md);
+
+  /* 关闭按钮尺寸 */
+  --ld-tabs-close-size: var(--ld-tabs-icon-size);
+
+  /* 过渡动画 */
+  --ld-tabs-transition-fast: var(--size-duration-fast, 0.1s) ease;
+  --ld-tabs-transition-normal: var(--size-duration-normal, 0.2s) ease;
+  --ld-tabs-transition-slow: var(--size-duration-slow, 0.3s) ease;
+  --ld-tabs-transition: var(--ld-tabs-transition-normal);
+
+  /* ========== 颜色系统 ========== */
+  /* 背景色 */
+  --ld-tabs-bg: var(--color-bg-component, #ffffff);
+  --ld-tabs-bg-hover: var(--color-bg-hover, #f5f5f5);
+  --ld-tabs-bg-active: var(--color-bg-active, #e8f4fd);
+  --ld-tabs-bg-container: var(--color-bg-layout, #f5f5f5);
+
+  /* 边框色 */
+  --ld-tabs-border: var(--color-border, #e0e0e0);
+  --ld-tabs-border-active: var(--color-primary-default, #1890ff);
+
+  /* 文字色 */
+  --ld-tabs-text: var(--color-text-secondary, #666666);
+  --ld-tabs-text-hover: var(--color-text-primary, #333333);
+  --ld-tabs-text-active: var(--color-primary-default, #1890ff);
+
+  /* 固定标签 */
+  --ld-tabs-pinned-bg: var(--color-bg-subtle, #fafafa);
+  --ld-tabs-pinned-border: var(--color-border-subtle, #f0f0f0);
+
+  /* 关闭按钮 */
+  --ld-tabs-close-color: var(--color-text-tertiary, #999999);
+  --ld-tabs-close-hover-color: var(--color-text-secondary, #666666);
+  --ld-tabs-close-hover-bg: var(--color-bg-hover, rgba(0, 0, 0, 0.05));
+
+  /* 图标颜色 */
+  --ld-tabs-icon-color: var(--color-text-tertiary, #999999);
+  --ld-tabs-icon-color-active: var(--color-primary-default, #1890ff);
+
+  /* 状态指示 */
+  --ld-tabs-loading-color: var(--color-primary-default, #1890ff);
+  --ld-tabs-error-color: var(--color-danger-default, #ff4d4f);
+
+  /* 阴影 */
+  --ld-tabs-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+  --ld-tabs-shadow-hover: var(--shadow-md, 0 2px 4px rgba(0, 0, 0, 0.1));
+  --ld-tabs-shadow-active: var(--shadow-md, 0 2px 8px rgba(24, 144, 255, 0.2));
+
+  /* 滚动按钮 */
+  --ld-tabs-scroll-btn-size: var(--ld-tabs-height);
+  --ld-tabs-scroll-btn-bg: var(--color-bg-component, #ffffff);
+  --ld-tabs-scroll-btn-hover-bg: var(--color-bg-hover, #f5f5f5);
+  --ld-tabs-scroll-btn-shadow: var(--shadow-md, 0 2px 4px rgba(0, 0, 0, 0.1));
+
+  /* 右键菜单 */
+  --ld-tabs-menu-bg: var(--color-bg-elevated, #ffffff);
+  --ld-tabs-menu-border: var(--color-border, #e0e0e0);
+  --ld-tabs-menu-shadow: var(--shadow-lg, 0 4px 12px rgba(0, 0, 0, 0.15));
+  --ld-tabs-menu-item-height: var(--size-component-sm, 32px);
+  --ld-tabs-menu-item-hover-bg: var(--color-bg-hover, #f5f5f5);
+
+  /* 拖拽 */
+  --ld-tabs-drag-opacity: 0.5;
+  --ld-tabs-drop-indicator-color: var(--color-primary-default, #1890ff);
+
+  /* ========== 样式特定变量 ========== */
+  /* Chrome 风格 */
+  --ld-tabs-chrome-overlap: -8px;
+  --ld-tabs-chrome-skew: 8deg;
+
+  /* VSCode 风格 */
+  --ld-tabs-vscode-indicator-height: 2px;
+  --ld-tabs-vscode-gap: 0;
+
+  /* Material 风格 */
+  --ld-tabs-material-indicator-height: 3px;
+  --ld-tabs-material-ripple-duration: 0.6s;
+}
+
+/* 暗色模式 */
+[data-theme="dark"],
+.dark-mode {
+  --ld-tabs-bg: var(--color-bg-component, #1f1f1f);
+  --ld-tabs-bg-hover: var(--color-bg-hover, #2a2a2a);
+  --ld-tabs-bg-active: var(--color-bg-active, #1a3a4a);
+  --ld-tabs-border: var(--color-border, #404040);
+  --ld-tabs-text: var(--color-text-secondary, #b3b3b3);
+  --ld-tabs-text-active: var(--color-primary-default, #40a9ff);
+  --ld-tabs-text-hover: var(--color-text-primary, #e8e8e8);
+
+  --ld-tabs-pinned-bg: var(--color-bg-subtle, #252525);
+  --ld-tabs-pinned-border: var(--color-border-subtle, #353535);
+
+  --ld-tabs-close-color: var(--color-text-tertiary, #808080);
+  --ld-tabs-close-hover-color: var(--color-text-secondary, #b3b3b3);
+  --ld-tabs-close-hover-bg: var(--color-bg-hover, rgba(255, 255, 255, 0.05));
+
+  --ld-tabs-icon-color: var(--color-text-tertiary, #808080);
+
+  --ld-tabs-scroll-btn-bg: var(--color-bg-component, #1f1f1f);
+  --ld-tabs-scroll-btn-hover-bg: var(--color-bg-hover, #2a2a2a);
+
+  --ld-tabs-menu-bg: var(--color-bg-elevated, #2a2a2a);
+  --ld-tabs-menu-border: var(--color-border, #404040);
+  --ld-tabs-menu-item-hover-bg: var(--color-bg-hover, #353535);
+}

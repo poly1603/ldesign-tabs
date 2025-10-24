@@ -1,0 +1,159 @@
+/**
+ * Material Design 风格
+ * 特征：扁平设计、涟漪效果、底部指示条
+ */
+
+.ld-tabs-container.ld-tabs-style-material {
+  background-color: var(--ld-tabs-bg);
+  border-bottom: 1px solid var(--ld-tabs-border);
+}
+
+.ld-tabs-container.ld-tabs-style-material .ld-tabs-list {
+  gap: 0;
+  padding: 0;
+}
+
+/* Material 风格标签 */
+.ld-tabs-container.ld-tabs-style-material .ld-tab-item {
+  position: relative;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  margin: 0;
+  height: 100%;
+  padding: 0 calc(var(--ld-tabs-padding-x) * 1.5);
+  transition: background-color var(--ld-tabs-transition);
+  overflow: hidden;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* 涟漪效果容器 */
+.ld-tabs-container.ld-tabs-style-material .ld-tab-item::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background-color: var(--ld-tabs-text-active);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: width var(--ld-tabs-material-ripple-duration),
+    height var(--ld-tabs-material-ripple-duration),
+    opacity var(--ld-tabs-material-ripple-duration);
+}
+
+/* 点击涟漪效果 */
+.ld-tabs-container.ld-tabs-style-material .ld-tab-item:active::before {
+  width: 200%;
+  height: 200%;
+  opacity: 0.2;
+}
+
+/* Hover 状态 */
+.ld-tabs-container.ld-tabs-style-material .ld-tab-item:hover {
+  background-color: var(--ld-tabs-bg-hover);
+}
+
+/* 底部指示条 */
+.ld-tabs-container.ld-tabs-style-material .ld-tab-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: var(--ld-tabs-material-indicator-height);
+  background-color: var(--ld-tabs-border-active);
+  transition: width var(--ld-tabs-transition);
+}
+
+/* 激活状态 */
+.ld-tabs-container.ld-tabs-style-material .ld-tab-item.active {
+  color: var(--ld-tabs-text-active);
+}
+
+.ld-tabs-container.ld-tabs-style-material .ld-tab-item.active::after {
+  width: 100%;
+}
+
+/* 激活状态的图标 */
+.ld-tabs-container.ld-tabs-style-material .ld-tab-item.active .ld-tab-icon {
+  color: var(--ld-tabs-icon-color-active);
+}
+
+/* 固定标签标记 */
+.ld-tabs-container.ld-tabs-style-material .ld-tab-item.pinned .ld-tab-title::after {
+  content: '•';
+  margin-left: var(--size-spacing-xs, 4px);
+  color: var(--ld-tabs-text-active);
+}
+
+/* 关闭按钮 */
+.ld-tabs-container.ld-tabs-style-material .ld-tab-close {
+  opacity: 0;
+  border-radius: 50%;
+  transition: all var(--ld-tabs-transition-fast);
+}
+
+.ld-tabs-container.ld-tabs-style-material .ld-tab-item:hover .ld-tab-close {
+  opacity: 0.7;
+}
+
+.ld-tabs-container.ld-tabs-style-material .ld-tab-close:hover {
+  opacity: 1;
+  background-color: var(--ld-tabs-close-hover-bg);
+  transform: scale(1.2);
+}
+
+/* 拖拽状态 */
+.ld-tabs-container.ld-tabs-style-material .ld-tab-item.dragging {
+  opacity: 0.6;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Loading 状态 */
+.ld-tabs-container.ld-tabs-style-material .ld-tab-item.loading .ld-tab-icon {
+  animation: ld-tabs-rotate 1s linear infinite;
+}
+
+@keyframes ld-tabs-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error 状态 */
+.ld-tabs-container.ld-tabs-style-material .ld-tab-item.error::after {
+  background-color: var(--ld-tabs-error-color);
+  width: 100%;
+}
+
+/* 滚动按钮 */
+.ld-tabs-container.ld-tabs-style-material .ld-tabs-scroll-btn {
+  border: none;
+  background-color: var(--ld-tabs-bg);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 0 var(--size-spacing-xs, 4px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all var(--ld-tabs-transition);
+}
+
+.ld-tabs-container.ld-tabs-style-material .ld-tabs-scroll-btn:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  background-color: var(--ld-tabs-bg-hover);
+}
+
+.ld-tabs-container.ld-tabs-style-material .ld-tabs-scroll-btn:active {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: scale(0.95);
+}

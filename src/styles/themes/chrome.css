@@ -1,0 +1,276 @@
+/**
+ * Google Chrome 浏览器标签页风格
+ * 参考最新版 Chrome 浏览器设计
+ * 特征：简洁优雅、流畅动画、现代感十足
+ */
+
+/* ========== 容器样式 ========== */
+.ld-tabs-container.ld-tabs-style-chrome {
+  background: #f8f9fa;
+  border-bottom: 1px solid #dadce0;
+  padding: 0;
+}
+
+.ld-tabs-container.ld-tabs-style-chrome .ld-tabs-wrapper {
+  background: transparent;
+}
+
+.ld-tabs-container.ld-tabs-style-chrome .ld-tabs-list {
+  gap: 0;
+  padding: 8px 8px 0 8px;
+  background: transparent;
+}
+
+/* ========== 标签基础样式 ========== */
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-item {
+  position: relative;
+  min-width: 120px;
+  max-width: 240px;
+  height: 36px;
+  margin: 0 -4px;
+  padding: 0 16px;
+  border-radius: 12px 12px 0 0;
+  background: #e8eaed;
+  border: none;
+  color: #5f6368;
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* ========== 非激活标签 Hover ========== */
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-item:hover {
+  background: #dadce0;
+  z-index: 2;
+}
+
+/* ========== 激活标签 ========== */
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.active {
+  background: #ffffff;
+  color: #202124;
+  font-weight: 500;
+  z-index: 10;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* ========== 标签内容布局 ========== */
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  color: inherit;
+  transition: color 0.12s ease;
+}
+
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.active .ld-tab-icon {
+  color: #1a73e8;
+}
+
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  line-height: 36px;
+}
+
+/* ========== 关闭按钮 ========== */
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-close {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #5f6368;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.12s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* 显示关闭按钮 */
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-item:hover .ld-tab-close,
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.active .ld-tab-close {
+  opacity: 0.7;
+}
+
+/* 关闭按钮 Hover */
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-close:hover {
+  opacity: 1 !important;
+  background: rgba(60, 64, 67, 0.08);
+}
+
+/* 关闭按钮激活 */
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-close:active {
+  background: rgba(60, 64, 67, 0.12);
+}
+
+/* ========== 固定标签 ========== */
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.pinned {
+  min-width: 48px;
+  max-width: 48px;
+  padding: 0 12px;
+  justify-content: center;
+}
+
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.pinned .ld-tab-title {
+  display: none;
+}
+
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.pinned .ld-tab-close {
+  display: none;
+}
+
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.pinned .ld-tab-icon {
+  margin: 0;
+}
+
+/* ========== 拖拽状态 ========== */
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.dragging {
+  opacity: 0.6;
+  cursor: grabbing;
+  transform: scale(0.98);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== Loading 状态 ========== */
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.loading .ld-tab-icon {
+  animation: ld-tabs-rotate 1s linear infinite;
+}
+
+@keyframes ld-tabs-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========== Error 状态 ========== */
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.error {
+  color: #d93025;
+}
+
+.ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.error .ld-tab-icon {
+  color: #d93025;
+}
+
+/* ========== 滚动按钮 ========== */
+.ld-tabs-container.ld-tabs-style-chrome .ld-tabs-scroll-btn {
+  width: 32px;
+  height: 32px;
+  margin: 2px 4px 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #5f6368;
+  cursor: pointer;
+  transition: background 0.12s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ld-tabs-container.ld-tabs-style-chrome .ld-tabs-scroll-btn:hover {
+  background: rgba(60, 64, 67, 0.08);
+}
+
+.ld-tabs-container.ld-tabs-style-chrome .ld-tabs-scroll-btn:active {
+  background: rgba(60, 64, 67, 0.12);
+}
+
+.ld-tabs-container.ld-tabs-style-chrome .ld-tabs-scroll-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ========== 尺寸变体 ========== */
+/* 小尺寸 */
+.ld-tabs-container.ld-tabs-style-chrome.ld-tabs-size-xs .ld-tab-item,
+.ld-tabs-container.ld-tabs-style-chrome.ld-tabs-size-sm .ld-tab-item {
+  height: 32px;
+  min-width: 100px;
+  padding: 0 12px;
+  border-radius: 8px 8px 0 0;
+}
+
+.ld-tabs-container.ld-tabs-style-chrome.ld-tabs-size-xs .ld-tab-title,
+.ld-tabs-container.ld-tabs-style-chrome.ld-tabs-size-sm .ld-tab-title {
+  font-size: 12px;
+  line-height: 32px;
+}
+
+/* 大尺寸 */
+.ld-tabs-container.ld-tabs-style-chrome.ld-tabs-size-lg .ld-tab-item,
+.ld-tabs-container.ld-tabs-style-chrome.ld-tabs-size-xl .ld-tab-item {
+  height: 40px;
+  min-width: 140px;
+  padding: 0 20px;
+  border-radius: 14px 14px 0 0;
+}
+
+.ld-tabs-container.ld-tabs-style-chrome.ld-tabs-size-lg .ld-tab-title,
+.ld-tabs-container.ld-tabs-style-chrome.ld-tabs-size-xl .ld-tab-title {
+  font-size: 14px;
+  line-height: 40px;
+}
+
+/* ========== 暗色模式 ========== */
+[data-theme="dark"] .ld-tabs-container.ld-tabs-style-chrome,
+.dark-mode .ld-tabs-container.ld-tabs-style-chrome {
+  background: #202124;
+  border-bottom-color: #3c4043;
+}
+
+[data-theme="dark"] .ld-tabs-container.ld-tabs-style-chrome .ld-tab-item,
+.dark-mode .ld-tabs-container.ld-tabs-style-chrome .ld-tab-item {
+  background: #35363a;
+  color: #bdc1c6;
+}
+
+[data-theme="dark"] .ld-tabs-container.ld-tabs-style-chrome .ld-tab-item:hover,
+.dark-mode .ld-tabs-container.ld-tabs-style-chrome .ld-tab-item:hover {
+  background: #3c4043;
+}
+
+[data-theme="dark"] .ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.active,
+.dark-mode .ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.active {
+  background: #292a2d;
+  color: #e8eaed;
+}
+
+[data-theme="dark"] .ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.active .ld-tab-icon,
+.dark-mode .ld-tabs-container.ld-tabs-style-chrome .ld-tab-item.active .ld-tab-icon {
+  color: #8ab4f8;
+}
+
+/* ========== Shrink 模式优化 ========== */
+.ld-tabs-container.ld-tabs-style-chrome.ld-tabs-width-shrink .ld-tab-item {
+  flex: 1 1 auto;
+  min-width: 80px;
+  margin: 0;
+}
+
+.ld-tabs-container.ld-tabs-style-chrome.ld-tabs-width-shrink .ld-tabs-list {
+  gap: 2px;
+}

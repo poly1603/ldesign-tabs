@@ -1,0 +1,8 @@
+/**
+ * 标签页样式入口
+ */
+
+@import './variables.css';
+@import './base.css';
+@import './animations.css';
+@import './themes/index.css';
