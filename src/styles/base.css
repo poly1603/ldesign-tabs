@@ -216,42 +216,66 @@
 .ld-tabs-context-menu {
   position: fixed;
   z-index: 9999;
-  min-width: 160px;
-  padding: var(--size-spacing-sm, 4px) 0;
+  min-width: 180px;
+  padding: 6px 0;
   background-color: var(--ld-tabs-menu-bg);
   border: 1px solid var(--ld-tabs-menu-border);
-  border-radius: var(--ld-tabs-radius);
+  border-radius: 8px;
   box-shadow: var(--ld-tabs-menu-shadow);
+  backdrop-filter: blur(10px);
 }
 
 .ld-tabs-context-menu-item {
   display: flex;
   align-items: center;
-  gap: var(--size-spacing-md, 8px);
+  gap: var(--size-spacing-md, 10px);
   height: var(--ld-tabs-menu-item-height);
   padding: 0 var(--ld-tabs-padding-x);
   color: var(--ld-tabs-text);
-  font-size: var(--size-font-sm, 14px);
+  font-size: var(--size-font-sm, 13px);
   cursor: pointer;
-  transition: background-color var(--ld-tabs-transition);
+  transition: all var(--ld-tabs-transition);
   user-select: none;
+  border-radius: 4px;
+  margin: 0 4px;
 }
 
 .ld-tabs-context-menu-item:hover {
   background-color: var(--ld-tabs-menu-item-hover-bg);
+  color: var(--ld-tabs-text-hover);
 }
 
 .ld-tabs-context-menu-item:active {
   opacity: 0.8;
+  transform: scale(0.98);
 }
 
 .ld-tabs-context-menu-item.disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 .ld-tabs-context-menu-item.disabled:hover {
   background-color: transparent;
+  color: var(--ld-tabs-text);
+  transform: none;
+}
+
+/* 菜单项图标 */
+.ld-tabs-menu-icon {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  opacity: 0.7;
+  transition: opacity var(--ld-tabs-transition);
+}
+
+.ld-tabs-context-menu-item:hover .ld-tabs-menu-icon {
+  opacity: 1;
+}
+
+.ld-tabs-context-menu-item.disabled .ld-tabs-menu-icon {
+  opacity: 0.3;
 }
 
 .ld-tabs-context-menu-divider {

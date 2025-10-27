@@ -72,6 +72,27 @@ export interface StoredStatistics {
 }
 
 /**
+ * 存储的书签
+ */
+export interface StoredBookmarks {
+  /** 书签列表 */
+  bookmarks: Array<{
+    id: string
+    title: string
+    path: string
+    icon?: string
+    category: string
+    description?: string
+    meta?: Record<string, any>
+    createdAt: number
+    lastAccessedAt?: number
+    accessCount: number
+  }>
+  /** 时间戳 */
+  timestamp: number
+}
+
+/**
  * 存储接口
  */
 export interface TabStorage {
@@ -95,6 +116,10 @@ export interface TabStorage {
   saveStatistics(stats: StoredStatistics): void
   /** 加载统计数据 */
   loadStatistics(): StoredStatistics | null
+  /** 保存书签（可选） */
+  saveBookmarks?(bookmarks: StoredBookmarks): void
+  /** 加载书签（可选） */
+  loadBookmarks?(): StoredBookmarks | null
   /** 清除所有数据 */
   clear(): void
 }

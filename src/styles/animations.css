@@ -176,6 +176,47 @@
   animation: ld-tabs-pulse 1s ease-in-out infinite;
 }
 
+/* Tab 添加动画 */
+@keyframes ld-tabs-tab-add {
+  from {
+    transform: scale(0.8) translateY(-8px);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Tab 删除动画 */
+@keyframes ld-tabs-tab-remove {
+  from {
+    transform: scale(1);
+    opacity: 1;
+    max-width: 240px;
+  }
+
+  to {
+    transform: scale(0.8);
+    opacity: 0;
+    max-width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/* 应用添加/删除动画 */
+.ld-tab-item.ld-tabs-adding {
+  animation: ld-tabs-tab-add 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ld-tab-item.ld-tabs-removing {
+  animation: ld-tabs-tab-remove 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
 
 
 

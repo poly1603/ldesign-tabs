@@ -1,12 +1,24 @@
 /**
  * Ant Design 卡片风格
- * 特征：圆角卡片、明显间隙、阴影提升
+ * 
+ * 特征：
+ * - 优雅的圆角卡片设计
+ * - 明显的卡片间隙
+ * - 层次分明的阴影系统
+ * - Hover 时卡片上浮效果
+ * - 激活标签的边框高亮
+ * - 流畅的过渡动画
+ * - 响应式间距调整
+ * 
+ * 设计参考：Ant Design 4.x/5.x
  */
 
+/* ========== 容器样式 ========== */
 .ld-tabs-container.ld-tabs-style-card {
-  background-color: transparent;
+  background-color: #fafafa;
   border-bottom: none;
-  padding: var(--size-spacing-md, 8px) 0;
+  padding: 8px 0;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.06);
 }
 
 .ld-tabs-container.ld-tabs-style-card .ld-tabs-list {
@@ -14,111 +26,349 @@
   padding: 0 var(--size-spacing-md, 8px);
 }
 
-/* 卡片风格标签 */
+/* ========== 标签基础样式 ========== */
 .ld-tabs-container.ld-tabs-style-card .ld-tab-item {
   position: relative;
-  border: 1px solid var(--ld-tabs-border);
-  border-radius: var(--ld-tabs-radius);
-  background-color: var(--ld-tabs-bg);
-  margin: 0;
+  display: flex;
+  align-items: center;
+  min-width: 120px;
+  max-width: 240px;
   height: calc(100% - 8px);
-  padding: 0 var(--ld-tabs-padding-x);
-  transition: all var(--ld-tabs-transition);
-  box-shadow: var(--ld-tabs-shadow);
+  padding: 0 16px;
+  margin: 0;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.03),
+    0 1px 6px -1px rgba(0, 0, 0, 0.02),
+    0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
-/* Hover 状态 */
+/* ========== Hover 状态（卡片上浮效果） ========== */
 .ld-tabs-container.ld-tabs-style-card .ld-tab-item:hover {
-  background-color: var(--ld-tabs-bg-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--ld-tabs-shadow-hover);
+  background-color: #fafafa;
+  border-color: #40a9ff;
+  color: rgba(0, 0, 0, 0.85);
+  transform: translateY(-3px);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 8px 16px rgba(0, 0, 0, 0.05);
+  z-index: 1;
 }
 
-/* 激活状态 */
+/* ========== 激活状态（边框高亮） ========== */
 .ld-tabs-container.ld-tabs-style-card .ld-tab-item.active {
-  background-color: var(--ld-tabs-bg-active);
-  border-color: var(--ld-tabs-border-active);
-  color: var(--ld-tabs-text-active);
-  box-shadow: var(--ld-tabs-shadow-active);
-  transform: translateY(-2px);
+  background-color: #ffffff;
+  border-color: #1890ff;
+  border-width: 2px;
+  color: #1890ff;
+  font-weight: 500;
+  transform: translateY(-3px);
+  box-shadow:
+    0 3px 6px rgba(24, 144, 255, 0.12),
+    0 6px 16px rgba(24, 144, 255, 0.08),
+    0 9px 28px rgba(24, 144, 255, 0.05);
+  z-index: 2;
 }
 
 /* 激活状态的图标 */
 .ld-tabs-container.ld-tabs-style-card .ld-tab-item.active .ld-tab-icon {
-  color: var(--ld-tabs-icon-color-active);
+  color: #1890ff;
 }
 
-/* 固定标签 */
+/* ========== 标签内容 ========== */
+.ld-tabs-container.ld-tabs-style-card .ld-tab-icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  color: rgba(0, 0, 0, 0.65);
+  transition: color 0.3s ease;
+}
+
+.ld-tabs-container.ld-tabs-style-card .ld-tab-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+/* ========== 固定标签（加深背景） ========== */
 .ld-tabs-container.ld-tabs-style-card .ld-tab-item.pinned {
-  background-color: var(--ld-tabs-pinned-bg);
-  border-color: var(--ld-tabs-pinned-border);
+  background: linear-gradient(135deg, #e6f7ff 0%, #bae7ff 100%);
+  border-color: #91d5ff;
+  min-width: 48px;
+  max-width: 48px;
+  padding: 0 12px;
+  justify-content: center;
 }
 
-.ld-tabs-container.ld-tabs-style-card .ld-tab-item.pinned::before {
-  content: '📌';
+.ld-tabs-container.ld-tabs-style-card .ld-tab-item.pinned .ld-tab-title {
+  display: none;
+}
+
+.ld-tabs-container.ld-tabs-style-card .ld-tab-item.pinned .ld-tab-close {
+  display: none;
+}
+
+.ld-tabs-container.ld-tabs-style-card .ld-tab-item.pinned .ld-tab-icon {
+  margin: 0;
+}
+
+/* 固定标签图钉标记 */
+.ld-tabs-container.ld-tabs-style-card .ld-tab-item.pinned::after {
+  content: '';
   position: absolute;
-  top: 2px;
-  right: 2px;
-  font-size: 10px;
-  opacity: 0.6;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #1890ff;
+  box-shadow: 0 0 0 2px #ffffff;
 }
 
-/* 关闭按钮 */
+/* ========== 关闭按钮 ========== */
 .ld-tabs-container.ld-tabs-style-card .ld-tab-close {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin-left: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.45);
   opacity: 0;
-  transition: all var(--ld-tabs-transition-fast);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.ld-tabs-container.ld-tabs-style-card .ld-tab-item:hover .ld-tab-close {
+.ld-tabs-container.ld-tabs-style-card .ld-tab-close svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* 显示关闭按钮 */
+.ld-tabs-container.ld-tabs-style-card .ld-tab-item:hover .ld-tab-close,
+.ld-tabs-container.ld-tabs-style-card .ld-tab-item.active .ld-tab-close {
   opacity: 1;
 }
 
+/* 关闭按钮 Hover */
 .ld-tabs-container.ld-tabs-style-card .ld-tab-close:hover {
-  background-color: var(--ld-tabs-close-hover-bg);
-  transform: scale(1.1);
+  background-color: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.85);
+  transform: scale(1.15);
 }
 
-/* 拖拽状态 */
+/* 关闭按钮激活 */
+.ld-tabs-container.ld-tabs-style-card .ld-tab-close:active {
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: scale(1.0);
+}
+
+/* ========== 拖拽状态 ========== */
 .ld-tabs-container.ld-tabs-style-card .ld-tab-item.dragging {
-  opacity: 0.5;
-  transform: scale(0.95) rotate(2deg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0.7;
+  transform: scale(1.05) rotate(3deg);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
 }
 
-/* Loading 状态 */
+/* ========== Loading 状态 ========== */
 .ld-tabs-container.ld-tabs-style-card .ld-tab-item.loading .ld-tab-icon {
-  animation: ld-tabs-pulse 1.5s ease-in-out infinite;
+  animation: card-pulse 1.5s ease-in-out infinite;
 }
 
-@keyframes ld-tabs-pulse {
+@keyframes card-pulse {
 
   0%,
   100% {
     opacity: 1;
+    transform: scale(1);
   }
 
   50% {
     opacity: 0.5;
+    transform: scale(0.9);
   }
 }
 
-/* Error 状态 */
+/* ========== Error 状态 ========== */
 .ld-tabs-container.ld-tabs-style-card .ld-tab-item.error {
-  border-color: var(--ld-tabs-error-color);
-  background-color: var(--color-danger-50, #fff5f5);
+  border-color: #ff4d4f;
+  background: linear-gradient(135deg, #fff1f0 0%, #ffccc7 100%);
+  color: #cf1322;
 }
 
-/* 滚动按钮 */
+.ld-tabs-container.ld-tabs-style-card .ld-tab-item.error .ld-tab-icon {
+  color: #ff4d4f;
+}
+
+/* ========== 滚动按钮 ========== */
 .ld-tabs-container.ld-tabs-style-card .ld-tabs-scroll-btn {
-  border: 1px solid var(--ld-tabs-border);
-  border-radius: var(--ld-tabs-radius);
-  margin: 0 var(--size-spacing-xs, 4px);
+  width: 32px;
   height: calc(100% - 16px);
-  background-color: var(--ld-tabs-bg);
-  box-shadow: var(--ld-tabs-shadow);
+  margin: 0 4px;
+  padding: 0;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.65);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.03),
+    0 1px 6px -1px rgba(0, 0, 0, 0.02);
 }
 
 .ld-tabs-container.ld-tabs-style-card .ld-tabs-scroll-btn:hover {
-  box-shadow: var(--ld-tabs-shadow-hover);
-  transform: scale(1.05);
+  background-color: #fafafa;
+  border-color: #40a9ff;
+  color: #40a9ff;
+  transform: translateY(-2px);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.ld-tabs-container.ld-tabs-style-card .ld-tabs-scroll-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.ld-tabs-container.ld-tabs-style-card .ld-tabs-scroll-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ========== 新增标签按钮 ========== */
+.ld-tabs-container.ld-tabs-style-card .ld-tabs-add-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin: 2px 8px;
+  padding: 0;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ld-tabs-container.ld-tabs-style-card .ld-tabs-add-btn:hover {
+  border-color: #40a9ff;
+  border-style: solid;
+  background-color: #e6f7ff;
+  color: #1890ff;
+  transform: scale(1.1);
+}
+
+.ld-tabs-container.ld-tabs-style-card .ld-tabs-add-btn:active {
+  transform: scale(1.0);
+}
+
+.ld-tabs-container.ld-tabs-style-card .ld-tabs-add-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ========== 暗色模式 ========== */
+[data-theme="dark"] .ld-tabs-container.ld-tabs-style-card,
+.dark-mode .ld-tabs-container.ld-tabs-style-card {
+  background-color: #141414;
+}
+
+[data-theme="dark"] .ld-tabs-container.ld-tabs-style-card .ld-tab-item,
+.dark-mode .ld-tabs-container.ld-tabs-style-card .ld-tab-item {
+  background-color: #1f1f1f;
+  border-color: #434343;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+[data-theme="dark"] .ld-tabs-container.ld-tabs-style-card .ld-tab-item:hover,
+.dark-mode .ld-tabs-container.ld-tabs-style-card .ld-tab-item:hover {
+  background-color: #262626;
+  border-color: #177ddc;
+}
+
+[data-theme="dark"] .ld-tabs-container.ld-tabs-style-card .ld-tab-item.active,
+.dark-mode .ld-tabs-container.ld-tabs-style-card .ld-tab-item.active {
+  background-color: #111b26;
+  border-color: #177ddc;
+  color: #177ddc;
+  box-shadow:
+    0 3px 6px rgba(23, 125, 220, 0.15),
+    0 6px 16px rgba(23, 125, 220, 0.1);
+}
+
+[data-theme="dark"] .ld-tabs-container.ld-tabs-style-card .ld-tab-item.pinned,
+.dark-mode .ld-tabs-container.ld-tabs-style-card .ld-tab-item.pinned {
+  background: linear-gradient(135deg, #111b26 0%, #0e1d2e 100%);
+  border-color: #15395b;
+}
+
+[data-theme="dark"] .ld-tabs-container.ld-tabs-style-card .ld-tab-close,
+.dark-mode .ld-tabs-container.ld-tabs-style-card .ld-tab-close {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+[data-theme="dark"] .ld-tabs-container.ld-tabs-style-card .ld-tab-close:hover,
+.dark-mode .ld-tabs-container.ld-tabs-style-card .ld-tab-close:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ========== 尺寸变体 ========== */
+.ld-tabs-container.ld-tabs-style-card.ld-tabs-size-xs .ld-tab-item,
+.ld-tabs-container.ld-tabs-style-card.ld-tabs-size-sm .ld-tab-item {
+  min-width: 100px;
+  padding: 0 12px;
+  border-radius: 6px;
+}
+
+.ld-tabs-container.ld-tabs-style-card.ld-tabs-size-lg .ld-tab-item,
+.ld-tabs-container.ld-tabs-style-card.ld-tabs-size-xl .ld-tab-item {
+  min-width: 140px;
+  padding: 0 20px;
+  border-radius: 10px;
+}
+
+.ld-tabs-container.ld-tabs-style-card.ld-tabs-size-lg .ld-tabs-list,
+.ld-tabs-container.ld-tabs-style-card.ld-tabs-size-xl .ld-tabs-list {
+  gap: 12px;
+}
+
+/* ========== 响应式优化 ========== */
+@media (max-width: 768px) {
+  .ld-tabs-container.ld-tabs-style-card .ld-tabs-list {
+    gap: 6px;
+    padding: 0 6px;
+  }
+
+  .ld-tabs-container.ld-tabs-style-card .ld-tab-item {
+    min-width: 80px;
+    padding: 0 10px;
+  }
 }

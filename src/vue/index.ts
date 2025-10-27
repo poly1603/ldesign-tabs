@@ -11,6 +11,7 @@ export type { TabsPluginOptions } from './plugin'
 export { default as TabsContainer } from './components/TabsContainer.vue'
 export { default as TabItem } from './components/TabItem.vue'
 export { default as TabContextMenu } from './components/TabContextMenu.vue'
+export { default as TabAddButton } from './components/TabAddButton.vue'
 export { default as TabScrollButtons } from './components/TabScrollButtons.vue'
 
 

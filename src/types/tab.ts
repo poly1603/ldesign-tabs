@@ -63,12 +63,30 @@ export interface TabGroup {
   id: string
   /** 组名称 */
   name: string
+  /** 组颜色 */
+  color: string
   /** 是否折叠 */
   collapsed: boolean
-  /** 标签列表 */
-  tabs: Tab[]
+  /** 标签ID列表 */
+  tabIds: string[]
   /** 创建时间 */
   createdAt: number
+  /** 更新时间 */
+  updatedAt: number
+}
+
+/**
+ * 创建标签组的配置
+ */
+export interface TabGroupConfig {
+  /** 组名称 */
+  name: string
+  /** 组颜色（可选） */
+  color?: string
+  /** 标签ID列表（可选） */
+  tabIds?: string[]
+  /** 是否初始折叠（可选） */
+  collapsed?: boolean
 }
 
 /**
@@ -85,6 +103,20 @@ export interface TabTemplate {
   tabs: TabConfig[]
   /** 创建时间 */
   createdAt: number
+  /** 更新时间 */
+  updatedAt: number
+  /** 最后使用时间 */
+  lastUsedAt?: number
+}
+
+/**
+ * 创建标签模板的配置
+ */
+export interface TabTemplateConfig {
+  /** 模板名称 */
+  name: string
+  /** 模板描述 */
+  description?: string
 }
 
 /**

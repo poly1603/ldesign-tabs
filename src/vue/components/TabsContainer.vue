@@ -42,6 +42,9 @@
       </svg>
     </button>
 
+    <!-- 新增标签按钮 -->
+    <TabAddButton v-if="showAddButton" @click="handleAddTab" />
+
     <!-- 右键菜单 -->
     <TabContextMenu v-model:visible="contextMenu.visible" :x="contextMenu.x" :y="contextMenu.y" :tab="contextMenu.tab"
       :tab-index="contextMenu.tabIndex" :total-tabs="tabs.length" :custom-items="customMenuItems" @pin="handlePin"
@@ -53,8 +56,10 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onUnmounted, nextTick, provide } from 'vue'
 import type { Tab, TabStyleType, TabWidthMode, TabSize } from '../../types'
+import { debounce, throttle } from '../../utils'
 import TabItem from './TabItem.vue'
 import TabContextMenu from './TabContextMenu.vue'
+import TabAddButton from './TabAddButton.vue'
 
 interface CustomMenuItem {
   label: string
@@ -68,6 +73,7 @@ interface Props {
   enableDrag?: boolean
   showIcon?: boolean
   showScrollButtons?: boolean
+  showAddButton?: boolean
   customMenuItems?: CustomMenuItem[]
   /** 样式类型 */
   styleType?: TabStyleType
@@ -87,6 +93,7 @@ interface Emits {
   (e: 'close-right', tab: Tab): void
   (e: 'close-left', tab: Tab): void
   (e: 'close-all'): void
+  (e: 'tab-add'): void
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -95,6 +102,7 @@ const props = withDefaults(defineProps<Props>(), {
   enableDrag: true,
   showIcon: true,
   showScrollButtons: true,
+  showAddButton: true,
   customMenuItems: () => [],
   styleType: 'chrome',
   widthMode: 'scroll',
@@ -177,6 +185,11 @@ const handleCloseAll = () => {
   emit('close-all')
 }
 
+// 新增标签
+const handleAddTab = () => {
+  emit('tab-add')
+}
+
 // 拖拽开始
 const handleDragStart = (event: DragEvent, index: number) => {
   dragState.value.dragIndex = index
@@ -208,14 +221,15 @@ const handleDrop = (event: DragEvent, index: number) => {
   dragState.value.dropIndex = index
 }
 
-// 鼠标滚轮横向滚动
-const handleWheel = (event: WheelEvent) => {
+// 鼠标滚轮横向滚动（使用节流优化性能）
+const handleWheel = throttle((event: WheelEvent) => {
   if (listRef.value && Math.abs(event.deltaY) > 0) {
     event.preventDefault()
     listRef.value.scrollLeft += event.deltaY
-    updateScrollState()
+    // 使用 requestAnimationFrame 优化滚动状态更新
+    requestAnimationFrame(updateScrollState)
   }
-}
+}, 16) // 约60fps
 
 // 向左滚动
 const scrollLeft = () => {
@@ -248,32 +262,37 @@ const updateScrollState = () => {
   canScrollRight.value = scrollLeft + clientWidth < scrollWidth - 1
 }
 
-// 滚动到激活的标签
+// 滚动到激活的标签（优化：使用 requestAnimationFrame 和缓存）
 const scrollToActiveTab = async () => {
   await nextTick()
 
   if (!listRef.value || !props.activeTabId) return
 
-  const activeTabElement = listRef.value.querySelector('.ld-tab-item.active') as HTMLElement
+  // 缓存 DOM 查询
+  const listElement = listRef.value
+  const activeTabElement = listElement.querySelector('.ld-tab-item.active') as HTMLElement
   if (!activeTabElement) return
 
-  const containerRect = listRef.value.getBoundingClientRect()
-  const tabRect = activeTabElement.getBoundingClientRect()
+  requestAnimationFrame(() => {
+    const containerRect = listElement.getBoundingClientRect()
+    const tabRect = activeTabElement.getBoundingClientRect()
 
-  if (tabRect.left < containerRect.left) {
-    listRef.value.scrollBy({
-      left: tabRect.left - containerRect.left - 20,
-      behavior: 'smooth',
-    })
-  }
-  else if (tabRect.right > containerRect.right) {
-    listRef.value.scrollBy({
-      left: tabRect.right - containerRect.right + 20,
-      behavior: 'smooth',
-    })
-  }
+    if (tabRect.left < containerRect.left) {
+      listElement.scrollBy({
+        left: tabRect.left - containerRect.left - 20,
+        behavior: 'smooth',
+      })
+    }
+    else if (tabRect.right > containerRect.right) {
+      listElement.scrollBy({
+        left: tabRect.right - containerRect.right + 20,
+        behavior: 'smooth',
+      })
+    }
 
-  setTimeout(updateScrollState, 300)
+    // 延迟更新滚动状态
+    setTimeout(() => requestAnimationFrame(updateScrollState), 300)
+  })
 }
 
 // 监听激活标签变化
@@ -288,8 +307,8 @@ watch(() => props.tabs.length, () => {
   })
 })
 
-// Shrink 模式 - 计算标签宽度
-const calculateShrinkWidths = () => {
+// Shrink 模式 - 计算标签宽度（使用防抖优化性能，缓存DOM查询）
+const calculateShrinkWidths = debounce(() => {
   if (props.widthMode !== 'shrink' || !wrapperRef.value || !listRef.value) return
 
   const wrapper = wrapperRef.value
@@ -311,35 +330,41 @@ const calculateShrinkWidths = () => {
   const maxWidth = 200 // --ld-tabs-max-width
 
   // 计算实际宽度
-  let actualWidth = Math.max(minWidth, Math.min(idealWidth, maxWidth))
+  const actualWidth = Math.max(minWidth, Math.min(idealWidth, maxWidth))
 
-  // 应用宽度到每个标签
-  tabElements.forEach((tab) => {
-    ; (tab as HTMLElement).style.width = `${actualWidth}px`
+  // 使用 requestAnimationFrame 批量更新 DOM
+  requestAnimationFrame(() => {
+    // 应用宽度到每个标签（一次性修改样式）
+    const widthValue = `${actualWidth}px`
+    tabElements.forEach((tab) => {
+      (tab as HTMLElement).style.width = widthValue
+    })
+
+    // 如果即使使用最小宽度还是超出，启用滚动
+    const totalWidth = tabCount * actualWidth
+    if (totalWidth > availableWidth) {
+      list.style.overflowX = 'auto'
+      requestAnimationFrame(updateScrollState)
+    } else {
+      list.style.overflowX = 'hidden'
+      canScrollLeft.value = false
+      canScrollRight.value = false
+    }
   })
-
-  // 如果即使使用最小宽度还是超出，启用滚动
-  const totalWidth = tabCount * actualWidth
-  if (totalWidth > availableWidth) {
-    list.style.overflowX = 'auto'
-    updateScrollState()
-  } else {
-    list.style.overflowX = 'hidden'
-    canScrollLeft.value = false
-    canScrollRight.value = false
-  }
-}
+}, 150) // 150ms 防抖延迟
 
 // ResizeObserver 监听容器大小变化
 let resizeObserver: ResizeObserver | null = null
 
-// 监听窗口大小变化
-const handleResize = () => {
-  updateScrollState()
-  if (props.widthMode === 'shrink') {
-    calculateShrinkWidths()
-  }
-}
+// 监听窗口大小变化（使用防抖优化）
+const handleResize = debounce(() => {
+  requestAnimationFrame(() => {
+    updateScrollState()
+    if (props.widthMode === 'shrink') {
+      calculateShrinkWidths()
+    }
+  })
+}, 150)
 
 onMounted(() => {
   updateScrollState()
@@ -348,15 +373,19 @@ onMounted(() => {
     listRef.value.addEventListener('scroll', updateScrollState)
   }
 
-  // 设置 ResizeObserver 监听容器宽度变化
+  // 设置 ResizeObserver 监听容器宽度变化（使用防抖优化性能）
   if (wrapperRef.value) {
-    resizeObserver = new ResizeObserver(() => {
-      if (props.widthMode === 'shrink') {
-        calculateShrinkWidths()
-      } else {
-        updateScrollState()
-      }
-    })
+    const resizeCallback = debounce(() => {
+      requestAnimationFrame(() => {
+        if (props.widthMode === 'shrink') {
+          calculateShrinkWidths()
+        } else {
+          updateScrollState()
+        }
+      })
+    }, 150)
+    
+    resizeObserver = new ResizeObserver(resizeCallback)
     resizeObserver.observe(wrapperRef.value)
   }
 

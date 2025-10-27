@@ -30,6 +30,16 @@
       "import": "./es/core/*.js",
       "require": "./lib/core/*.cjs"
     },
+    "./react": {
+      "types": "./es/react/index.d.ts",
+      "import": "./es/react/index.js",
+      "require": "./lib/react/index.cjs"
+    },
+    "./react/*": {
+      "types": "./es/react/*.d.ts",
+      "import": "./es/react/*.js",
+      "require": "./lib/react/*.cjs"
+    },
     "./types": {
       "types": "./es/types/index.d.ts",
       "import": "./es/types/index.js",

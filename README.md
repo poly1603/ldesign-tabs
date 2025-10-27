@@ -32,6 +32,9 @@
 - ✅ 响应式设计
 - ✅ 完整的 TypeScript 支持
 - ✅ 框架无关的核心（可在任何框架中使用）
+- ✅ **标签分组管理**（创建分组、分组折叠、颜色标记）
+- ✅ **标签模板系统**（保存/加载工作区、导入/导出模板）
+- ✅ **强大的搜索功能**（模糊搜索、高级过滤、搜索历史）
 
 ## 📦 安装
 
@@ -287,7 +290,13 @@ TabsContainer 组件的属性。
 
 #### 样式类型说明
 
-- **chrome**: Chrome 浏览器风格，梯形标签，活动标签突出，标签之间有重叠效果
+- **chrome**: Chrome 浏览器风格
+  - 真实的梯形标签外观（使用 CSS clip-path polygon）
+  - 双层背景系统（背景 + 边框分离）
+  - 精致的渐变和多层阴影
+  - 智能分隔线系统
+  - 标签重叠效果
+  - 推荐配合 `width-mode="shrink"` 使用
 - **vscode**: VSCode 编辑器风格，矩形标签，底部指示线，紧凑布局
 - **card**: Ant Design 卡片风格，圆角卡片设计，标签之间有明显间隙
 - **material**: Material Design 风格，扁平设计，涟漪点击效果，底部加粗指示条
@@ -485,6 +494,90 @@ manager.events.on('tabs:restored', (event) => {
 - `tabs:limit-reached` - 达到数量限制
 - `tabs:restored` - 状态恢复
 
+## 🎯 新功能
+
+### 标签分组管理
+
+```typescript
+import { createGroupManager } from '@ldesign/tabs'
+
+// 创建分组管理器
+const groupManager = createGroupManager(tabManager)
+
+// 创建分组
+const group = groupManager.createGroup({
+  name: '开发环境',
+  color: '#1890ff',
+  tabIds: ['tab1', 'tab2'],
+  collapsed: false
+})
+
+// 添加标签到分组
+groupManager.addTabToGroup(group.id, 'tab3')
+
+// 切换分组折叠状态
+groupManager.toggleGroup(group.id)
+
+// 关闭分组中的所有标签
+groupManager.closeGroup(group.id)
+```
+
+### 标签模板系统
+
+```typescript
+import { createTemplateManager } from '@ldesign/tabs'
+
+// 创建模板管理器
+const templateManager = createTemplateManager(tabManager, storage)
+
+// 保存当前标签为模板
+const template = templateManager.saveTemplate({
+  name: '开发环境',
+  description: '包含代码编辑器、API文档、数据库管理等标签'
+})
+
+// 加载模板
+templateManager.loadTemplate(template.id)
+
+// 导出模板为JSON
+const json = templateManager.exportTemplate(template.id)
+
+// 从JSON导入模板
+const imported = templateManager.importTemplate(json)
+
+// 获取所有模板
+const templates = templateManager.getAllTemplates()
+```
+
+### 标签搜索功能
+
+```typescript
+import { createSearchEngine } from '@ldesign/tabs'
+
+// 创建搜索引擎
+const searchEngine = createSearchEngine(tabManager)
+
+// 简单搜索
+const results = searchEngine.search('用户', { limit: 10 })
+
+// 高级搜索
+const filtered = searchEngine.advancedSearch({
+  keyword: '管理',
+  status: 'normal',
+  pinned: false,
+  minVisitCount: 5,
+  sortBy: 'visitCount',
+  sortOrder: 'desc'
+})
+
+// 获取搜索历史
+const history = searchEngine.getSearchHistory()
+
+// 高亮搜索结果
+const highlighted = searchEngine.highlightText('用户管理', '用户')
+// 返回: '<mark>用户</mark>管理'
+```
+
 ## 💡 高级用法
 
 ### 自定义右键菜单项
@@ -561,6 +654,209 @@ app.use(TabsPlugin, {
 
 // 全局使用
 app.config.globalProperties.$tabs
+```
+
+## ⚛️ React 支持
+
+### React Hooks
+
+```tsx
+import { useTabs } from '@ldesign/tabs/react'
+import '@ldesign/tabs/styles'
+
+function App() {
+  const {
+    tabs,
+    activeTabId,
+    activeTab,
+    addTab,
+    removeTab,
+    activateTab,
+    pinTab,
+    unpinTab,
+  } = useTabs({
+    maxTabs: 10,
+    persist: true,
+    enableDrag: true,
+  })
+
+  return (
+    <div>
+      <div className="tabs-bar">
+        {tabs.map(tab => (
+          <div
+            key={tab.id}
+            className={activeTabId === tab.id ? 'tab active' : 'tab'}
+            onClick={() => activateTab(tab.id)}
+          >
+            {tab.icon && <span>{tab.icon}</span>}
+            <span>{tab.title}</span>
+            {tab.closable && (
+              <button onClick={(e) => {
+                e.stopPropagation()
+                removeTab(tab.id)
+              }}>×</button>
+            )}
+          </div>
+        ))}
+        <button onClick={() => addTab({ title: '新标签', path: '/new' })}>
+          +
+        </button>
+      </div>
+      
+      <div className="content">
+        {activeTab && <h1>{activeTab.title}</h1>}
+      </div>
+    </div>
+  )
+}
+```
+
+### React 组件
+
+```tsx
+import { TabsContainer, useTabs } from '@ldesign/tabs/react'
+import '@ldesign/tabs/styles'
+
+function App() {
+  const { tabs, activeTabId, activateTab, removeTab } = useTabs({
+    maxTabs: 10,
+    persist: true,
+  })
+
+  return (
+    <TabsContainer
+      tabs={tabs}
+      activeTabId={activeTabId}
+      styleType="chrome"
+      widthMode="shrink"
+      size="md"
+      onTabClick={(tab) => activateTab(tab.id)}
+      onTabClose={(tab) => removeTab(tab.id)}
+    />
+  )
+}
+```
+
+### React Context
+
+```tsx
+import { TabsProvider, useTabsContext, TabsContainer } from '@ldesign/tabs/react'
+import '@ldesign/tabs/styles'
+
+function App() {
+  return (
+    <TabsProvider config={{ maxTabs: 10, persist: true }}>
+      <TabsUI />
+    </TabsProvider>
+  )
+}
+
+function TabsUI() {
+  const { tabs, activeTabId, activateTab, removeTab, addTab } = useTabsContext()
+
+  return (
+    <div>
+      <TabsContainer
+        tabs={tabs}
+        activeTabId={activeTabId}
+        styleType="vscode"
+        onTabClick={(tab) => activateTab(tab.id)}
+        onTabClose={(tab) => removeTab(tab.id)}
+        onAddTab={() => addTab({ title: '新标签', path: '/new' })}
+      />
+      
+      {/* 可以在组件树的任意位置使用 */}
+      <Sidebar />
+      <Content />
+    </div>
+  )
+}
+
+function Sidebar() {
+  const { tabs, pinTab } = useTabsContext()
+  
+  return (
+    <aside>
+      <h3>所有标签 ({tabs.length})</h3>
+      <ul>
+        {tabs.map(tab => (
+          <li key={tab.id}>
+            {tab.title}
+            {!tab.pinned && (
+              <button onClick={() => pinTab(tab.id)}>📌</button>
+            )}
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )
+}
+```
+
+### React Hooks API
+
+#### useTabs
+
+完整的标签管理 Hook：
+
+```typescript
+const {
+  // 状态
+  tabs,              // 标签列表
+  activeTabId,       // 激活的标签ID
+  activeTab,         // 激活的标签对象
+  tabsCount,         // 标签数量
+  canAddTab,         // 是否可以添加
+
+  // 方法
+  addTab,            // 添加标签
+  removeTab,         // 移除标签
+  updateTab,         // 更新标签
+  activateTab,       // 激活标签
+  pinTab,            // 固定标签
+  unpinTab,          // 取消固定
+  reorderTabs,       // 重新排序
+  closeOtherTabs,    // 关闭其他
+  closeAllTabs,      // 关闭所有
+  closeTabsToRight,  // 关闭右侧
+  closeTabsToLeft,   // 关闭左侧
+  reopenLastClosedTab, // 重新打开
+  getClosedHistory,  // 获取历史
+  clearHistory,      // 清除历史
+
+  // 实例
+  manager,           // TabManager 实例
+  dragHandler,       // DragHandler 实例
+} = useTabs(config)
+```
+
+#### useTabManager
+
+轻量级管理器 Hook：
+
+```tsx
+const manager = useTabManager({ maxTabs: 10 })
+
+// 直接使用管理器方法
+manager.addTab({ title: '首页', path: '/' })
+manager.activateTab('tab_123')
+```
+
+#### useTabDrag
+
+拖拽功能 Hook：
+
+```tsx
+const { isDragging, isDropTarget, dragHandlers } = useTabDrag(manager, {
+  index: 0,
+  enabled: true,
+  delay: 100,
+})
+
+<div draggable {...dragHandlers} className={isDragging ? 'dragging' : ''}>
+  Tab Content
+</div>
 ```
 
 ## 📄 许可证

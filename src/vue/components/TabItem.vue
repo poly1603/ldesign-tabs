@@ -12,6 +12,9 @@
   ]" :draggable="enableDrag" :title="`${tab.title}\n${tab.path}`" @click="handleClick"
     @contextmenu="handleContextMenu" @dragstart="handleDragStart" @dragend="handleDragEnd" @dragover="handleDragOver"
     @dragenter="handleDragEnter" @dragleave="handleDragLeave" @drop="handleDrop">
+    <!-- 分隔线 -->
+    <div class="ld-tab-separator"></div>
+    
     <!-- 图标 -->
     <span v-if="tab.icon && showIcon" class="ld-tab-icon">
       <slot name="icon" :tab="tab">

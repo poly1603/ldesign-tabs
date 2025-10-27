@@ -6,6 +6,8 @@
 @import './vscode.css';
 @import './card.css';
 @import './material.css';
+@import './safari.css';
+@import './firefox.css';
 
 /* 尺寸变体 */
 .ld-tabs-container.ld-tabs-size-xs {

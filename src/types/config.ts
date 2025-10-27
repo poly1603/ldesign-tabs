@@ -68,8 +68,16 @@ export interface ShortcutConfig {
 
 /**
  * 样式类型
+ * 
+ * 支持的主题风格：
+ * - chrome: Chrome 浏览器风格（梯形标签）
+ * - vscode: VS Code 编辑器风格（矩形标签+底部指示条）
+ * - card: Ant Design 卡片风格（圆角卡片+阴影）
+ * - material: Material Design 风格（扁平+Ripple效果）
+ * - safari: Safari 浏览器风格（毛玻璃效果）
+ * - firefox: Firefox 浏览器风格（圆角标签）
  */
-export type TabStyleType = 'chrome' | 'vscode' | 'card' | 'material'
+export type TabStyleType = 'chrome' | 'vscode' | 'card' | 'material' | 'safari' | 'firefox'
 
 /**
  * 宽度适应模式

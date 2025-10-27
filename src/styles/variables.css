@@ -8,7 +8,7 @@
   /* 标签页高度 - 多尺寸支持 */
   --ld-tabs-height-xs: var(--size-component-xs, 28px);
   --ld-tabs-height-sm: var(--size-component-sm, 32px);
-  --ld-tabs-height-md: var(--size-component-md, 36px);
+  --ld-tabs-height-md: var(--size-component-md, 100%);
   --ld-tabs-height-lg: var(--size-component-lg, 40px);
   --ld-tabs-height-xl: var(--size-component-xl, 48px);
   --ld-tabs-height: var(--ld-tabs-height-md);
