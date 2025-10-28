@@ -95,11 +95,11 @@
   },
   "dependencies": {
     "@ldesign/shared": "workspace:*",
+    "@ldesign/color": "workspace:*",
+    "@ldesign/router": "workspace:*",
     "nanoid": "^5.0.9"
   },
   "peerDependencies": {
-    "@ldesign/router": "^1.0.0",
-    "@ldesign/color": "^1.0.0",
     "vue": "^3.3.0",
     "react": "^18.0.0"
   },
@@ -115,12 +115,6 @@
     "pnpm": ">=8.0.0"
   },
   "peerDependenciesMeta": {
-    "@ldesign/router": {
-      "optional": true
-    },
-    "@ldesign/color": {
-      "optional": true
-    },
     "vue": {
       "optional": true
     },
