@@ -20,6 +20,11 @@
       "import": "./es/index.js",
       "require": "./lib/index.cjs"
     },
+    "./components/*": {
+      "types": "./es/components/*.d.ts",
+      "import": "./es/components/*.js",
+      "require": "./lib/components/*.cjs"
+    },
     "./core": {
       "types": "./es/core/index.d.ts",
       "import": "./es/core/index.js",
@@ -81,8 +86,7 @@
     "LICENSE",
     "package.json",
     "es",
-    "lib",
-    "dist"
+    "lib"
   ],
   "scripts": {
     "build": "ldesign-builder build",
